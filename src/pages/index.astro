@@ -1,69 +1,229 @@
 ---
-import BaseHead from '../components/BaseHead.astro';
-import Footer from '../components/sections/Footer.astro';
-import Header from '../components/sections/Header.astro';
-import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
-import HeroSection from '../components/sections/HeroSection.astro';
-import SkillsSection from '../components/sections/SkillsSection.astro';
-import { skills } from '../data/skills';
-import WorkExperience from '../components/sections/WorkExperience.astro';
-import { work } from '../data/work';
-import Studies from '../components/sections/Studies.astro';
-import { studies } from '../data/studies';
-import Carousel from '../components/ui/carousel/Carousel.astro';
-import { logos } from '../data/logos';
-import ArrowSeparator from '../components/ui/separator/ArrowSeparator.astro'
-import GlowLineSeparator from '../components/ui/separator/GlowLineSeparator.astro'
-
-// Logos
-import astroLogo from '../assets/logos/Astro-logo.svg';
-import googleAdsLogo from '../assets/logos/GoogleAds-logo.svg';
-import posthogLogo from '../assets/logos/posthog-logo.svg';
-import notionLogo from '../assets/logos/Notion-logo.svg';
-import figmaLogo from '../assets/logos/Figma-logo.svg';
-
-// skills are imported from src/data/skills
+import Layout from '../layouts/Layout.astro';
 ---
 
-<!doctype html>
-<html lang="en" data-theme="dark" class="dark">
-	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-    <!-- JSON-LD: Organization -->
-    <script type="application/ld+json" set:html={JSON.stringify({
-      '@context': 'https://schema.org',
-      '@type': 'Organization',
-      name: 'Site Author',
-      url: new URL('/', Astro.site).toString(),
-      logo: new URL('/favicon.svg', Astro.site).toString(),
-      sameAs: [
-        'https://x.com/guihubie',
-        'https://www.linkedin.com/in/guilherme-hubie/',
-      ],
-    })} />
-	</head>
-	<body>
-		<Header />
-		<main>
-      <HeroSection
-        title="Your Headline Goes Here!"
-        subtitle="I build softwares that brings you loyal subscribers."
-        showCTA
-        primaryCTA={{ text: 'View Projects', href: '/portfolio' }}
-        secondaryCTA={{ text: 'Read Blog', href: '/blog' }}
-      />
-     
+<Layout title="Petra | Portfolio">
+  <div id="vanta-bg"></div> {/* Tohle je ten element pro pozadí */}
 
-    <section class="py-6">
-      <ArrowSeparator />
-      <SkillsSection title="Skills & Tools" skills={skills} />   
-      <ArrowSeparator />
-      <WorkExperience title="Work Experience" items={work} />
-      <ArrowSeparator />
-      <Studies title="Studies" items={studies} />
-      <GlowLineSeparator />
+  <nav class="nav-bar">
+    <div class="nav-links">
+      <a href="#home">Home</a>
+      <a href="#about">O mně</a>
+      <a href="#projects">Projekty</a>
+      <a href="#contact">Kontakt</a>
+    </div>
+  </nav>
+
+  <main class="container">
+    <section id="home" class="hero">
+      <h1 class="motto">
+        Teorie v procesu, výsledky v praxi. <br/>
+        <span>Vyvíjím řešení, která rostou se mnou.</span>
+      </h1>
+      <p class="description">
+        Jako studentka IT propojuji čerstvé znalosti z vývoje s roční praxí ve <strong>Vishay</strong>. 
+        Zaměřuji se na backendovou logiku v <strong>C#</strong> a správu <strong>SQL</strong> databází, 
+        kde teorie končí a začíná reálná efektivita.
+      </p>
     </section>
-		</main>
-		<Footer />
-	</body>
-</html>
+
+    <hr class="separator" />
+
+    <section id="about">
+      <p class="section-label">O mně / Skills</p>
+      <div class="grid">
+        <div class="card">
+          <h3>🎯 C# Development</h3>
+          <p>Vývoj aplikací se zaměřením na logiku a stabilitu v průmyslovém prostředí.</p>
+        </div>
+        <div class="card">
+          <h3>🗄️ SQL & Data</h3>
+          <p>Efektivní správa databází. Kód je pro mě jen tak dobrý, jak kvalitní jsou data, která zpracovává.</p>
+        </div>
+      </div>
+    </section>
+
+    <hr class="separator" />
+
+    <section id="projects">
+      <p class="section-label">Pracovní zkušenosti / Projekty</p>
+      <div class="callout">
+        <span class="emoji">🚀</span>
+        <p><strong>Aktuálně:</strong> Junior Developer ve Vishay Intertechnology. Pracuji na projektech, které digitalizují a zpřehledňují výrobu.</p>
+      </div>
+    </section>
+
+    <hr class="separator" />
+
+    <section id="contact">
+      <p class="section-label">Kontakt</p>
+      <h2>Máte zájem o spolupráci?</h2>
+      <div class="contact-links">
+        <a href="https://www.linkedin.com/">LinkedIn</a>
+        <a href="mailto:tvuj@email.cz">Email</a>
+        <a href="https://github.com/petra-lol">GitHub</a>
+      </div>
+    </section>
+  </main>
+</Layout>
+
+<style>
+  /* ZÁKLADNÍ STYLING */
+  :global(html) {
+    scroll-behavior: smooth;
+    font-family: system-ui, sans-serif;
+    color: #fff;
+    /* DŮLEŽITÉ: Pozadí teď ovládá Vanta.js */
+  }
+
+  body {
+    margin: 0;
+    overflow-x: hidden; /* Aby se nescrollovalo do strany */
+  }
+
+  #vanta-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1; /* Posuneme to pod ostatní obsah */
+  }
+
+  /* OSTATNÍ STYLY - stejné jako předtím */
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    position: relative; /* Aby se obsah zobrazoval nad Vanta.js */
+    z-index: 0;
+  }
+
+  .nav-bar {
+    position: sticky;
+    top: 0;
+    background: rgba(10, 10, 10, 0.8);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid #222;
+    z-index: 100;
+    padding: 1rem 2rem;
+  }
+
+  .nav-links {
+    display: flex;
+    justify-content: flex-end;
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .nav-links a {
+    color: #888;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: color 0.3s;
+  }
+
+  .nav-links a:hover {
+    color: #fff;
+  }
+
+  .hero {
+    padding-top: 100px;
+    padding-bottom: 60px;
+  }
+
+  .motto {
+    font-size: 2.5rem;
+    line-height: 1.2;
+    font-weight: 800;
+    text-transform: uppercase;
+  }
+
+  .motto span {
+    background: linear-gradient(90deg, #fff, #666);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .description {
+    font-size: 1.2rem;
+    color: #ccc;
+    max-width: 800px;
+    margin-top: 20px;
+  }
+
+  .section-label {
+    text-transform: uppercase;
+    font-size: 0.7rem;
+    color: #555;
+    font-weight: bold;
+    letter-spacing: 0.2em;
+    margin-bottom: 2rem;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minminmax(300px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .card {
+    padding: 2rem;
+    border-radius: 12px;
+    border: 1px solid #222;
+    background: rgba(255, 255, 255, 0.02);
+  }
+
+  .separator {
+    border: 0;
+    border-bottom: 1px solid #222;
+    margin: 4rem 0;
+  }
+
+  .callout {
+    display: flex;
+    gap: 1rem;
+    background: #111;
+    padding: 1.5rem;
+    border-radius: 12px;
+    border: 1px solid #333;
+    align-items: center;
+  }
+
+  .contact-links {
+    display: flex;
+    gap: 2rem;
+    margin-top: 1rem;
+  }
+
+  .contact-links a {
+    color: #fff;
+    font-weight: bold;
+  }
+
+  section {
+    padding: 4rem 0;
+  }
+</style>
+
+<script is:inline>
+  // Sem přijde kód pro Vanta.js
+  // Bude se načítat až po stránce
+  import * as THREE from 'three';
+  import { default as CLOUDS } from 'vanta/dist/vanta.clouds.min.js';
+
+  CLOUDS({
+    el: "#vanta-bg",
+    mouseControls: true,
+    touchControls: true,
+    gyroControls: false,
+    minHeight: 200.00,
+    minWidth: 200.00,
+    speed: 1.50, // Rychlost animace
+    cloudColor: 0x474747, // Barva mraků (tmavší šedá)
+    skyColor: 0x0a0a0a, // Barva oblohy (skoro černá)
+    sunColor: 0x111111, // Barva "slunce" (jemný odlesk)
+    // Zkus si pohrát s těmito hodnotami
+  });
+</script>
