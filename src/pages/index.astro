@@ -1,69 +1,529 @@
 ---
-import BaseHead from '../components/BaseHead.astro';
-import Footer from '../components/sections/Footer.astro';
-import Header from '../components/sections/Header.astro';
-import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
-import HeroSection from '../components/sections/HeroSection.astro';
-import SkillsSection from '../components/sections/SkillsSection.astro';
-import { skills } from '../data/skills';
-import WorkExperience from '../components/sections/WorkExperience.astro';
-import { work } from '../data/work';
-import Studies from '../components/sections/Studies.astro';
-import { studies } from '../data/studies';
-import Carousel from '../components/ui/carousel/Carousel.astro';
-import { logos } from '../data/logos';
-import ArrowSeparator from '../components/ui/separator/ArrowSeparator.astro'
-import GlowLineSeparator from '../components/ui/separator/GlowLineSeparator.astro'
-
-// Logos
-import astroLogo from '../assets/logos/Astro-logo.svg';
-import googleAdsLogo from '../assets/logos/GoogleAds-logo.svg';
-import posthogLogo from '../assets/logos/posthog-logo.svg';
-import notionLogo from '../assets/logos/Notion-logo.svg';
-import figmaLogo from '../assets/logos/Figma-logo.svg';
-
-// skills are imported from src/data/skills
+import Layout from '../layouts/Layout.astro';
 ---
 
-<!doctype html>
-<html lang="en" data-theme="dark" class="dark">
-	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-    <!-- JSON-LD: Organization -->
-    <script type="application/ld+json" set:html={JSON.stringify({
-      '@context': 'https://schema.org',
-      '@type': 'Organization',
-      name: 'Site Author',
-      url: new URL('/', Astro.site).toString(),
-      logo: new URL('/favicon.svg', Astro.site).toString(),
-      sameAs: [
-        'https://x.com/guihubie',
-        'https://www.linkedin.com/in/guilherme-hubie/',
-      ],
-    })} />
-	</head>
-	<body>
-		<Header />
-		<main>
-      <HeroSection
-        title="Your Headline Goes Here!"
-        subtitle="I build softwares that brings you loyal subscribers."
-        showCTA
-        primaryCTA={{ text: 'View Projects', href: '/portfolio' }}
-        secondaryCTA={{ text: 'Read Blog', href: '/blog' }}
-      />
-     
+<Layout title="Petra | Portfolio">
+  <div id="vanta-bg"></div>
 
-    <section class="py-6">
-      <ArrowSeparator />
-      <SkillsSection title="Skills & Tools" skills={skills} />   
-      <ArrowSeparator />
-      <WorkExperience title="Work Experience" items={work} />
-      <ArrowSeparator />
-      <Studies title="Studies" items={studies} />
-      <GlowLineSeparator />
+  <nav class="nav-bar">
+    <div class="nav-links">
+      <a href="#home">Home</a>
+      <a href="#about">O mně</a>
+      <a href="#projects">Projekty</a>
+      <a href="#contact">Kontakt</a>
+    </div>
+  </nav>
+
+  <main class="content-wrapper">
+    <section id="home" class="hero">
+      <p class="section-number">01 / Intro</p>
+      <h1 class="motto">
+        Teorie v procesu, <br/>výsledky v praxi. <br/>
+        <span>Vyvíjím řešení, která rostou se mnou.</span>
+      </h1>
+      <p class="main-text">
+        Jako studentka IT propojuji čerstvé znalosti z vývoje s roční praxí ve <strong>Vishay</strong>. 
+        Zaměřuji se na backendovou logiku v <strong>C#</strong> a správu <strong>SQL</strong> databází, 
+        kde teorie končí a začíná reálná efektivita.
+      </p>
     </section>
-		</main>
-		<Footer />
-	</body>
-</html>
+
+    <hr class="line" />
+
+    <section id="about">
+      <p class="section-number">02 / Expertise</p>
+      <div class="skills-grid">
+        <div class="skill-card">
+          <h3>🎯 C# Development</h3>
+          <p>Vývoj aplikací se zaměřením na logiku a stabilitu v průmyslovém prostředí.</p>
+        </div>
+        <div class="skill-card">
+          <h3>🗄️ SQL & Data</h3>
+          <p>Efektivní správa databází. Kód je pro mě jen tak dobrý, jak kvalitní jsou data, která zpracovává.</p>
+        </div>
+      </div>
+    </section>
+
+    <hr class="line" />
+
+    <section id="projects">
+      <p class="section-number">03 / Experience</p>
+      <div class="experience-box">
+        <span class="badge">AKTUALNĚ</span>
+        <p><strong>Junior Developer ve Vishay Intertechnology.</strong> Pracuji na projektech, které digitalizují a zpřehledňují výrobu.</p>
+      </div>
+    </section>
+
+    <hr class="line" />
+
+    <section id="contact">
+      <p class="section-number">04 / Contact</p>
+      <h2 class="contact-title">Pojďme tvořit něco smysluplného.</h2>
+      <div class="links-row">
+        <a href="https://www.linkedin.com/" target="_blank">LinkedIn</a>
+        <a href="mailto:tvuj@email.cz">Email</a>
+        <a href="https://github.com/petra-lol" target="_blank">GitHub</a>
+      </div>
+    </section>
+  </main>
+</Layout>
+
+<style>
+  /* RESET A ZÁKLAD */
+  :global(html) {
+    scroll-behavior: smooth;
+    background-color: #050505;
+    color: #fff;
+    margin: 0;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  }
+
+  #vanta-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+  }
+
+  .content-wrapper {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 5%;
+  }
+
+  /* MENU */
+  .nav-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 25px 0;
+    z-index: 1000;
+    backdrop-filter: blur(10px);
+  }
+
+  .nav-links {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 5%;
+    display: flex;
+    justify-content: flex-end;
+    gap: 30px;
+  }
+
+  .nav-links a {
+    color: #888;
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    transition: color 0.3s;
+  }
+
+  .nav-links a:hover {
+    color: #fff;
+  }
+
+  /* TYPOGRAFIE A SEKCE */
+  section {
+    padding: 100px 0;
+  }
+
+  .section-number {
+    font-size: 0.7rem;
+    color: #555;
+    font-weight: 700;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    margin-bottom: 30px;
+  }
+
+  .motto {
+    font-size: clamp(1.8rem, 6vw, 3.5rem);
+    line-height: 1.1;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: -0.02em;
+  }
+
+  .motto span {
+    background: linear-gradient(90deg, #fff, #444);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .main-text {
+    font-size: 1.2rem;
+    color: #aaa;
+    max-width: 700px;
+    line-height: 1.6;
+    margin-top: 30px;
+  }
+
+  /* GRID A KARTY */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+  }
+
+  .skill-card {
+    padding: 40px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 4px;
+    transition: border 0.3s;
+  }
+
+  .skill-card:hover {
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  .skill-card h3 {
+    margin-top: 0;
+    font-size: 1.2rem;
+  }
+
+  .skill-card p {
+    color: #777;
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
+
+  .experience-box {
+    background: #111;
+    padding: 30px;
+    border-left: 2px solid #fff;
+  }
+
+  .badge {
+    font-size: 0.6rem;
+    background: #fff;
+    color: #000;
+    padding: 2px 8px;
+    font-weight: 900;
+    margin-bottom: 10px;
+    display: inline-block;
+  }
+
+  .line {
+    border: 0;
+    border-bottom: 1px solid #1a1a1a;
+  }
+
+  .contact-title {
+    font-size: 2rem;
+    margin-bottom: 30px;
+  }
+
+  .links-row {
+    display: flex;
+    gap: 30px;
+  }
+
+  .links-row a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: 700;
+    border-bottom: 1px solid #333;
+    padding-bottom: 5px;
+    transition: border 0.3s;
+  }
+
+  .links-row a:hover {
+    border-bottom: 1px solid #fff;
+  }
+</style>
+
+<script is:inline src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+<script is:inline src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.clouds.min.js"></script>
+<script is:inline>
+  function initVanta() {
+    if (window.VANTA) {
+      window.VANTA.CLOUDS({
+        el: "#vanta-bg",
+        mouseControls: true,
+        touchControls: true,
+        gyroControls: false,
+        minHeight: 200.00,
+        minWidth: 200.00,
+        skyColor: 0x0,
+        cloudColor: 0x222222,
+        cloudShadowColor: 0x0,
+        sunColor: 0x0,
+        sunGlareColor: 0x0,
+        sunlightColor: 0x0,
+        speed: 0.8
+      })
+    }
+  }
+  // Inicializace po načtení
+  document.addEventListener('DOMContentLoaded', initVanta);
+</script>---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Petra | Portfolio">
+  <div id="vanta-bg"></div>
+
+  <nav class="nav-bar">
+    <div class="nav-links">
+      <a href="#home">Home</a>
+      <a href="#about">O mně</a>
+      <a href="#projects">Projekty</a>
+      <a href="#contact">Kontakt</a>
+    </div>
+  </nav>
+
+  <main class="content-wrapper">
+    <section id="home" class="hero">
+      <p class="section-number">01 / Intro</p>
+      <h1 class="motto">
+        Teorie v procesu, <br/>výsledky v praxi. <br/>
+        <span>Vyvíjím řešení, která rostou se mnou.</span>
+      </h1>
+      <p class="main-text">
+        Jako studentka IT propojuji čerstvé znalosti z vývoje s roční praxí ve <strong>Vishay</strong>. 
+        Zaměřuji se na backendovou logiku v <strong>C#</strong> a správu <strong>SQL</strong> databází, 
+        kde teorie končí a začíná reálná efektivita.
+      </p>
+    </section>
+
+    <hr class="line" />
+
+    <section id="about">
+      <p class="section-number">02 / Expertise</p>
+      <div class="skills-grid">
+        <div class="skill-card">
+          <h3>🎯 C# Development</h3>
+          <p>Vývoj aplikací se zaměřením na logiku a stabilitu v průmyslovém prostředí.</p>
+        </div>
+        <div class="skill-card">
+          <h3>🗄️ SQL & Data</h3>
+          <p>Efektivní správa databází. Kód je pro mě jen tak dobrý, jak kvalitní jsou data, která zpracovává.</p>
+        </div>
+      </div>
+    </section>
+
+    <hr class="line" />
+
+    <section id="projects">
+      <p class="section-number">03 / Experience</p>
+      <div class="experience-box">
+        <span class="badge">AKTUALNĚ</span>
+        <p><strong>Junior Developer ve Vishay Intertechnology.</strong> Pracuji na projektech, které digitalizují a zpřehledňují výrobu.</p>
+      </div>
+    </section>
+
+    <hr class="line" />
+
+    <section id="contact">
+      <p class="section-number">04 / Contact</p>
+      <h2 class="contact-title">Pojďme tvořit něco smysluplného.</h2>
+      <div class="links-row">
+        <a href="https://www.linkedin.com/" target="_blank">LinkedIn</a>
+        <a href="mailto:tvuj@email.cz">Email</a>
+        <a href="https://github.com/petra-lol" target="_blank">GitHub</a>
+      </div>
+    </section>
+  </main>
+</Layout>
+
+<style>
+  /* RESET A ZÁKLAD */
+  :global(html) {
+    scroll-behavior: smooth;
+    background-color: #050505;
+    color: #fff;
+    margin: 0;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  }
+
+  #vanta-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+  }
+
+  .content-wrapper {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 5%;
+  }
+
+  /* MENU */
+  .nav-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 25px 0;
+    z-index: 1000;
+    backdrop-filter: blur(10px);
+  }
+
+  .nav-links {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 5%;
+    display: flex;
+    justify-content: flex-end;
+    gap: 30px;
+  }
+
+  .nav-links a {
+    color: #888;
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    transition: color 0.3s;
+  }
+
+  .nav-links a:hover {
+    color: #fff;
+  }
+
+  /* TYPOGRAFIE A SEKCE */
+  section {
+    padding: 100px 0;
+  }
+
+  .section-number {
+    font-size: 0.7rem;
+    color: #555;
+    font-weight: 700;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    margin-bottom: 30px;
+  }
+
+  .motto {
+    font-size: clamp(1.8rem, 6vw, 3.5rem);
+    line-height: 1.1;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: -0.02em;
+  }
+
+  .motto span {
+    background: linear-gradient(90deg, #fff, #444);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .main-text {
+    font-size: 1.2rem;
+    color: #aaa;
+    max-width: 700px;
+    line-height: 1.6;
+    margin-top: 30px;
+  }
+
+  /* GRID A KARTY */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+  }
+
+  .skill-card {
+    padding: 40px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 4px;
+    transition: border 0.3s;
+  }
+
+  .skill-card:hover {
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  .skill-card h3 {
+    margin-top: 0;
+    font-size: 1.2rem;
+  }
+
+  .skill-card p {
+    color: #777;
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
+
+  .experience-box {
+    background: #111;
+    padding: 30px;
+    border-left: 2px solid #fff;
+  }
+
+  .badge {
+    font-size: 0.6rem;
+    background: #fff;
+    color: #000;
+    padding: 2px 8px;
+    font-weight: 900;
+    margin-bottom: 10px;
+    display: inline-block;
+  }
+
+  .line {
+    border: 0;
+    border-bottom: 1px solid #1a1a1a;
+  }
+
+  .contact-title {
+    font-size: 2rem;
+    margin-bottom: 30px;
+  }
+
+  .links-row {
+    display: flex;
+    gap: 30px;
+  }
+
+  .links-row a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: 700;
+    border-bottom: 1px solid #333;
+    padding-bottom: 5px;
+    transition: border 0.3s;
+  }
+
+  .links-row a:hover {
+    border-bottom: 1px solid #fff;
+  }
+</style>
+
+<script is:inline src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+<script is:inline src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.clouds.min.js"></script>
+<script is:inline>
+  function initVanta() {
+    if (window.VANTA) {
+      window.VANTA.CLOUDS({
+        el: "#vanta-bg",
+        mouseControls: true,
+        touchControls: true,
+        gyroControls: false,
+        minHeight: 200.00,
+        minWidth: 200.00,
+        skyColor: 0x0,
+        cloudColor: 0x222222,
+        cloudShadowColor: 0x0,
+        sunColor: 0x0,
+        sunGlareColor: 0x0,
+        sunlightColor: 0x0,
+        speed: 0.8
+      })
+    }
+  }
+  // Inicializace po načtení
+  document.addEventListener('DOMContentLoaded', initVanta);
+</script>
