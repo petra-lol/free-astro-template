@@ -5,28 +5,6 @@ import Layout from '../layouts/MainLayout.astro';
 <Layout title="Petra Kratochvílová | Portfolio">
   <div id="vanta-bg"></div>
 
-<section id="lab">
-    <h2 class="section-title">Interactive Lab</h2>
-    <div class="game-container">
-      <div class="game-info">
-        <h3>Tic Tac Toe</h3>
-        <p id="game-status">Hráč X je na řadě</p>
-        <button id="reset-btn">Restartovat hru</button>
-      </div>
-      <div class="ttt-grid">
-        <div class="cell" data-index="0"></div>
-        <div class="cell" data-index="1"></div>
-        <div class="cell" data-index="2"></div>
-        <div class="cell" data-index="3"></div>
-        <div class="cell" data-index="4"></div>
-        <div class="cell" data-index="5"></div>
-        <div class="cell" data-index="6"></div>
-        <div class="cell" data-index="7"></div>
-        <div class="cell" data-index="8"></div>
-      </div>
-    </div>
-  </section>
-
   <nav class="nav-bar">
     <div class="nav-links">
       <a href="#home">Home</a>
@@ -96,8 +74,42 @@ import Layout from '../layouts/MainLayout.astro';
     <hr class="line" />
 
     <section id="projects">
-      <h2 class="section-title">Projekty</h2>
-      <p class="main-text">Zde se brzy objeví ukázky mých prací z oblasti vývoje a analýzy dat.</p>
+      <h2 class="section-title">Vybrané projekty</h2>
+      
+      <div class="projects-grid">
+        <div class="project-card">
+          <div class="project-header">
+            <span class="tech-tag">C# / SQL</span>
+          </div>
+          <h3>Manufacturing Logger</h3>
+          <p>Systém pro evidenci stavu strojů a analýzu chybovosti v reálném čase.</p>
+        </div>
+
+        <div class="project-card interactive-card">
+          <div class="project-header">
+            <span class="tech-tag">JavaScript</span>
+            <span class="tech-tag">AI Bot</span>
+          </div>
+          <h3>Tic Tac Toe vs. Robot</h3>
+          <p>Ukázka herní logiky. Zkus porazit bota!</p>
+          
+          <div class="mini-game-wrapper">
+            <p id="game-status">Jsi na řadě (X)</p>
+            <div class="ttt-grid" id="ttt-grid">
+              <div class="cell" data-index="0"></div>
+              <div class="cell" data-index="1"></div>
+              <div class="cell" data-index="2"></div>
+              <div class="cell" data-index="3"></div>
+              <div class="cell" data-index="4"></div>
+              <div class="cell" data-index="5"></div>
+              <div class="cell" data-index="6"></div>
+              <div class="cell" data-index="7"></div>
+              <div class="cell" data-index="8"></div>
+            </div>
+            <button id="reset-btn">Restartovat</button>
+          </div>
+        </div>
+      </div>
     </section>
 
     <hr class="line" />
@@ -120,11 +132,20 @@ import Layout from '../layouts/MainLayout.astro';
         <a href="https://github.com/petra-lol" target="_blank">GitHub</a>
       </div>
     </section>
+
+    <footer style="margin-top: 100px; padding: 40px 0; border-top: 1px solid rgba(255,255,255,0.05); text-align: center;">
+        <p style="color: #555; font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase;">
+          © 2025 Petra Kratochvílová — Vytvořeno v Astru
+        </p>
+    </footer>
+  </main>
+</Layout>
+
 <style>
   :global(html) {
     scroll-behavior: smooth;
     background-color: #020008;
-    color: #eee; /* Světlejší text */
+    color: #eee;
     margin: 0;
     font-family: 'Inter', system-ui, sans-serif;
   }
@@ -144,55 +165,6 @@ import Layout from '../layouts/MainLayout.astro';
     padding: 0 5%;
   }
 
-   .game-container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 40px;
-  align-items: center;
-  background: rgba(122, 93, 245, 0.03);
-  padding: 40px;
-  border-radius: 20px;
-  border: 1px solid rgba(122, 93, 245, 0.1);
-  margin-top: 20px;
-}
-
-.ttt-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 80px);
-  grid-template-rows: repeat(3, 80px);
-  gap: 10px;
-}
-
-.cell {
-  width: 80px;
-  height: 80px;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 2rem;
-  font-weight: 900;
-  cursor: pointer;
-  transition: 0.2s;
-}
-
-.cell:hover { background: rgba(122, 93, 245, 0.1); }
-.cell.x { color: #7a5df5; }
-.cell.o { color: #fff; }
-
-#reset-btn {
-  padding: 10px 20px;
-  background: transparent;
-  border: 1px solid #7a5df5;
-  color: #7a5df5;
-  border-radius: 8px;
-  cursor: pointer;
-}
-
-
-  /* Nav Bar */
   .nav-bar {
     position: fixed;
     top: 0;
@@ -224,14 +196,9 @@ import Layout from '../layouts/MainLayout.astro';
     transition: color 0.3s;
   }
 
-  .nav-links a:hover {
-    color: #fff;
-  }
+  .nav-links a:hover { color: #fff; }
 
-  section {
-    padding: 120px 0;
-    min-height: 40vh; /* Pomáhá proti opakování mraků u krátkého obsahu */
-  }
+  section { padding: 120px 0; min-height: 40vh; }
 
   .section-title {
     font-size: 1rem;
@@ -261,17 +228,75 @@ import Layout from '../layouts/MainLayout.astro';
     line-height: 1.6;
   }
 
-  .skills-grid {
+  .projects-grid, .skills-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 25px;
   }
 
-  .skill-card {
+  .project-card, .skill-card {
     padding: 35px;
     background: rgba(255, 255, 255, 0.03);
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 8px;
+  }
+
+  .tech-tag {
+    font-size: 0.65rem;
+    padding: 3px 8px;
+    background: rgba(122, 93, 245, 0.15);
+    color: #7a5df5;
+    border-radius: 4px;
+    margin-right: 5px;
+    font-weight: bold;
+  }
+
+  /* Hra styl */
+  .mini-game-wrapper {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.3);
+    padding: 20px;
+    border-radius: 12px;
+  }
+
+  .ttt-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 60px);
+    grid-template-rows: repeat(3, 60px);
+    gap: 8px;
+    margin-bottom: 15px;
+  }
+
+  .cell {
+    width: 60px;
+    height: 60px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+    cursor: pointer;
+  }
+
+  .cell.x { color: #7a5df5; }
+  .cell.o { color: #fff; }
+
+  #game-status { font-size: 0.75rem; color: #7a5df5; margin-bottom: 10px; text-transform: uppercase; }
+
+  #reset-btn {
+    background: transparent;
+    border: 1px solid #7a5df5;
+    color: #7a5df5;
+    padding: 5px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.7rem;
   }
 
   .experience-box {
@@ -280,96 +305,97 @@ import Layout from '../layouts/MainLayout.astro';
     border-left: 3px solid #7a5df5;
   }
 
-  .badge {
-    font-size: 0.7rem;
-    font-weight: 800;
-    color: #7a5df5;
-    margin-bottom: 10px;
-    display: block;
-  }
-
-  .line {
-    border: 0;
-    border-bottom: 1px solid rgba(255,255,255,0.05);
-  }
-
-  .links-row {
-    display: flex;
-    gap: 30px;
-    margin-top: 20px;
-  }
-
-  .links-row a {
-    color: #eee;
-    text-decoration: none;
-    font-weight: 600;
-    padding-bottom: 5px;
-    border-bottom: 1px solid #333;
-    transition: all 0.3s;
-  }
-
-  .links-row a:hover {
-    color: #7a5df5;
-    border-bottom: 1px solid #7a5df5;
-  }
+  .badge { font-size: 0.7rem; color: #7a5df5; font-weight: 800; margin-bottom: 10px; display: block; }
+  .line { border: 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
+  .links-row { display: flex; gap: 30px; margin-top: 20px; }
+  .links-row a { color: #eee; text-decoration: none; font-weight: 600; border-bottom: 1px solid #333; }
 </style>
 
 <script is:inline src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
 <script is:inline src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.clouds.min.js"></script>
+
 <script is:inline>
+  // 1. Inicializace Vanta.js (Mraky)
   function initVanta() {
     if (window.VANTA) {
       window.VANTA.CLOUDS({
         el: "#vanta-bg",
         mouseControls: true,
         touchControls: true,
-        gyroControls: false,
         minHeight: 200.00,
         minWidth: 200.00,
-        skyColor: 0x00051a, // Velmi tmavá modrá
-        cloudColor: 0x1e0032, // Temně fialová
+        skyColor: 0x00051a,
+        cloudColor: 0x1e0032,
         cloudShadowColor: 0x0,
         sunColor: 0x0,
         sunGlareColor: 0x0,
         sunlightColor: 0x0,
-        speed: 0.5 // Zpomalil jsem mraky, působí to luxusněji
-
-  // Přidej tohle dovnitř tvého existujícího <script is:inline>
-let currentPlayer = "X";
-let gameState = ["", "", "", "", "", "", "", "", ""];
-const statusDisplay = document.getElementById('game-status');
-const cells = document.querySelectorAll('.cell');
-
-function handleCellClick(e) {
-  const index = e.target.getAttribute('data-index');
-  if (gameState[index] !== "" || statusDisplay.innerText.includes("vyhrál")) return;
-
-  gameState[index] = currentPlayer;
-  e.target.innerText = currentPlayer;
-  e.target.classList.add(currentPlayer.toLowerCase());
-
-  const winConditions = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
-  let won = winConditions.some(comb => comb.every(i => gameState[i] === currentPlayer));
-
-  if (won) {
-    statusDisplay.innerText = `Hráč ${currentPlayer} vyhrál!`;
-  } else if (!gameState.includes("")) {
-    statusDisplay.innerText = "Remíza!";
-  } else {
-    currentPlayer = currentPlayer === "X" ? "O" : "X";
-    statusDisplay.innerText = `Hráč ${currentPlayer} je na řadě`;
-  }
-}
-
-cells.forEach(cell => cell.addEventListener('click', handleCellClick));
-document.getElementById('reset-btn').addEventListener('click', () => {
-  gameState = ["", "", "", "", "", "", "", "", ""];
-  currentPlayer = "X";
-  statusDisplay.innerText = "Hráč X je na řadě";
-  cells.forEach(c => { c.innerText = ""; c.classList.remove('x', 'o'); });
-});
-      })
+        speed: 0.5
+      });
     }
   }
-  document.addEventListener('DOMContentLoaded', initVanta);
+
+  // 2. Logika Hry (Robot vs. Hráč)
+  let gameState = ["", "", "", "", "", "", "", "", ""];
+  let gameActive = true;
+  const statusDisplay = document.getElementById('game-status');
+  const cells = document.querySelectorAll('.cell');
+
+  function handleCellClick(e) {
+    const index = e.target.getAttribute('data-index');
+    if (gameState[index] !== "" || !gameActive) return;
+
+    makeMove(index, "X");
+
+    if (gameActive) {
+      statusDisplay.innerText = "Robot přemýšlí...";
+      setTimeout(robotMove, 500);
+    }
+  }
+
+  function robotMove() {
+    if (!gameActive) return;
+    const availableMoves = gameState.map((v, i) => v === "" ? i : null).filter(v => v !== null);
+    if (availableMoves.length > 0) {
+      const move = availableMoves[Math.floor(Math.random() * availableMoves.length)];
+      makeMove(move, "O");
+    }
+  }
+
+  function makeMove(index, player) {
+    gameState[index] = player;
+    const cell = document.querySelector(`[data-index="${index}"]`);
+    cell.innerText = player;
+    cell.classList.add(player.toLowerCase());
+    checkResult(player);
+  }
+
+  function checkResult(player) {
+    const wins = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
+    let won = wins.some(comb => comb.every(i => gameState[i] === player));
+
+    if (won) {
+      statusDisplay.innerText = player === "X" ? "Vyhrála jsi! 🎉" : "Robot vyhrál! 🤖";
+      gameActive = false;
+    } else if (!gameState.includes("")) {
+      statusDisplay.innerText = "Remíza! 🤝";
+      gameActive = false;
+    } else if (player === "O") {
+      statusDisplay.innerText = "Jsi na řadě (X)";
+    }
+  }
+
+  // Reset hry
+  document.getElementById('reset-btn').addEventListener('click', () => {
+    gameState = ["", "", "", "", "", "", "", "", ""];
+    gameActive = true;
+    statusDisplay.innerText = "Jsi na řadě (X)";
+    cells.forEach(c => { c.innerText = ""; c.classList.remove('x', 'o'); });
+  });
+
+  // Spuštění všeho po načtení
+  document.addEventListener('DOMContentLoaded', () => {
+    initVanta();
+    cells.forEach(cell => cell.addEventListener('click', handleCellClick));
+  });
 </script>
