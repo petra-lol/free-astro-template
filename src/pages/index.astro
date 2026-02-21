@@ -5,6 +5,28 @@ import Layout from '../layouts/MainLayout.astro';
 <Layout title="Petra Kratochvílová | Portfolio">
   <div id="vanta-bg"></div>
 
+<section id="lab">
+    <h2 class="section-title">Interactive Lab</h2>
+    <div class="game-container">
+      <div class="game-info">
+        <h3>Tic Tac Toe</h3>
+        <p id="game-status">Hráč X je na řadě</p>
+        <button id="reset-btn">Restartovat hru</button>
+      </div>
+      <div class="ttt-grid">
+        <div class="cell" data-index="0"></div>
+        <div class="cell" data-index="1"></div>
+        <div class="cell" data-index="2"></div>
+        <div class="cell" data-index="3"></div>
+        <div class="cell" data-index="4"></div>
+        <div class="cell" data-index="5"></div>
+        <div class="cell" data-index="6"></div>
+        <div class="cell" data-index="7"></div>
+        <div class="cell" data-index="8"></div>
+      </div>
+    </div>
+  </section>
+
   <nav class="nav-bar">
     <div class="nav-links">
       <a href="#home">Home</a>
@@ -121,6 +143,54 @@ import Layout from '../layouts/MainLayout.astro';
     margin: 0 auto;
     padding: 0 5%;
   }
+
+   .game-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+  align-items: center;
+  background: rgba(122, 93, 245, 0.03);
+  padding: 40px;
+  border-radius: 20px;
+  border: 1px solid rgba(122, 93, 245, 0.1);
+  margin-top: 20px;
+}
+
+.ttt-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 80px);
+  grid-template-rows: repeat(3, 80px);
+  gap: 10px;
+}
+
+.cell {
+  width: 80px;
+  height: 80px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  font-weight: 900;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.cell:hover { background: rgba(122, 93, 245, 0.1); }
+.cell.x { color: #7a5df5; }
+.cell.o { color: #fff; }
+
+#reset-btn {
+  padding: 10px 20px;
+  background: transparent;
+  border: 1px solid #7a5df5;
+  color: #7a5df5;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
 
   /* Nav Bar */
   .nav-bar {
@@ -263,6 +333,41 @@ import Layout from '../layouts/MainLayout.astro';
         sunGlareColor: 0x0,
         sunlightColor: 0x0,
         speed: 0.5 // Zpomalil jsem mraky, působí to luxusněji
+
+  // Přidej tohle dovnitř tvého existujícího <script is:inline>
+let currentPlayer = "X";
+let gameState = ["", "", "", "", "", "", "", "", ""];
+const statusDisplay = document.getElementById('game-status');
+const cells = document.querySelectorAll('.cell');
+
+function handleCellClick(e) {
+  const index = e.target.getAttribute('data-index');
+  if (gameState[index] !== "" || statusDisplay.innerText.includes("vyhrál")) return;
+
+  gameState[index] = currentPlayer;
+  e.target.innerText = currentPlayer;
+  e.target.classList.add(currentPlayer.toLowerCase());
+
+  const winConditions = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
+  let won = winConditions.some(comb => comb.every(i => gameState[i] === currentPlayer));
+
+  if (won) {
+    statusDisplay.innerText = `Hráč ${currentPlayer} vyhrál!`;
+  } else if (!gameState.includes("")) {
+    statusDisplay.innerText = "Remíza!";
+  } else {
+    currentPlayer = currentPlayer === "X" ? "O" : "X";
+    statusDisplay.innerText = `Hráč ${currentPlayer} je na řadě`;
+  }
+}
+
+cells.forEach(cell => cell.addEventListener('click', handleCellClick));
+document.getElementById('reset-btn').addEventListener('click', () => {
+  gameState = ["", "", "", "", "", "", "", "", ""];
+  currentPlayer = "X";
+  statusDisplay.innerText = "Hráč X je na řadě";
+  cells.forEach(c => { c.innerText = ""; c.classList.remove('x', 'o'); });
+});
       })
     }
   }
